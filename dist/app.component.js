@@ -16,14 +16,18 @@ var AppComponent = (function () {
             { id: 27, name: 'Stephanie', username: 'sKidder' }
         ];
     }
+    AppComponent.prototype.selectUser = function (user) {
+        this.activeUser = user;
+        console.log(this.activeUser);
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n\t<header>\n\t\t<nav class=\"navbar navbar-inverse\">\n\t\t\t<div class=\"navbar-header\">\n\t\t\t\t<a href=\"/\" class=\"navbar-brand\">My Angular 2 App!</a>\n\t\t\t</div>\n\t\t</nav>\n\t</header>\n\n\t<main>\n\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-4\">\n\t\t\t<div *ngIf=\"users\">\n\t\t\t\t<ul class=\"list-group users-list\" *ngFor=\"let user of users\">\n\t\t\t\t\t<li class=\"list-group-item\">The user is {{user.name}} ({{ user.username }}).</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-sm-8\">\n\t\t\t<div class=\"jumbotron\">\n\t\t\t\t<h1>Welcome to Our App!</h1>\n\t\t\t\t\t<p>{{ message }}<p>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t</main>\n\t\t<footer class=\"text-center\">\n\t\t\tCopyright &copy; 2017\n\t\t</footer>\n\t",
+        template: "\n\t<header>\n\t\t<nav class=\"navbar navbar-inverse\">\n\t\t\t<div class=\"navbar-header\">\n\t\t\t\t<a href=\"/\" class=\"navbar-brand\">My Angular 2 App!</a>\n\t\t\t</div>\n\t\t</nav>\n\t</header>\n\n\t<main>\n\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-4\">\n\t\t\t<div *ngIf=\"users\">\n\t\t\t\t<ul class=\"list-group users-list\" >\n\t\t\t\t\t<li *ngFor=\"let user of users\" \n\t\t\t\t\t(click)=\"selectUser(user)\"\n\t\t\t\t\t[class.active]=\"user === activeUser\"\n\t\t\t\t\tclass=\"list-group-item\">\n\t\t\t\t\t\tThe user is {{user.name}} ({{ user.username }}).\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-sm-8\">\n\t\t\t<div class=\"jumbotron\" *ngIf=\"activeUser\">\n\t\t\t\t<h2>{{ activeUser.name }} <small>{{ activeUser.username }}</small></h2>\n\t\t\t</div>\n\n\t\t\t<div class=\"jumbotron\" *ngIf=\"!activeUser\">\n\t\t\t\t<span class=\"glyphicon glyphicon-hand-left\"></span>\n\t\t\t\t<h2>Choose a user</h2>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t</main>\n\t\t<footer class=\"text-center\">\n\t\t\tCopyright &copy; 2017\n\t\t</footer>\n\t",
         styles: [
-            ".jumbotron { box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); }\n\t"
+            "\n\t.users-list li { cursor: pointer; }\n\t.jumbotron .glyphicon { font-size: 80px;}\n\t"
         ]
     })
 ], AppComponent);
